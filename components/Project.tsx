@@ -36,7 +36,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="my-20 pt-0 md:pt-30 min-h-screen text-white">
+    <section id="projects" className="my-20 pt-0 md:pt-10 min-h-screen text-white">
       {/* Header */}
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold mb-2">
