@@ -83,20 +83,21 @@ export default function Contact() {
         <div className="bg-white/5 backdrop-blur-sm p-10 rounded-2xl border border-white/10 text-left">
           <h3 className="text-2xl font-semibold mb-8">Contact Information</h3>
 
-          <div className="space-y-12 text-lg text-gray-300">
-            <div className="flex items-center gap-4">
-              <Mail className="text-blue-400" size={22} />
-              <span>trannguyennamthuan@gmail.com</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Phone className="text-blue-400" size={22} />
-              <span>+84 (0) 945-924-240</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <MapPin className="text-blue-400" size={22} />
-              <span>Cần Đước, Long An, Việt Nam</span>
-            </div>
+         <div className="space-y-12 text-lg text-gray-300">
+          <div className="flex items-center gap-4 break-words">
+            <Mail className="text-blue-400" size={22} />
+            <span className="break-words max-w-full">trannguyennamthuan@gmail.com</span>
           </div>
+          <div className="flex items-center gap-4 break-words">
+            <Phone className="text-blue-400" size={22} />
+            <span className="break-words max-w-full">+84 (0) 945-924-240</span>
+          </div>
+          <div className="flex items-center gap-4 break-words">
+            <MapPin className="text-blue-400" size={22} />
+            <span className="break-words max-w-full">Cần Đước, Long An, Việt Nam</span>
+          </div>
+        </div>
+
 
           <h4 className="mt-20 mb-4 text-gray-400 text-lg font-medium text-center">
             Connect With Me
