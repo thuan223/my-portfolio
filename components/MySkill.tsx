@@ -43,7 +43,7 @@ export default function Skills() {
     <div
       id="skills"
 
-      className="min-h-screen pt-0 md:pt-10 text-white my-20"
+      className="min-h-screen pt-0 md:pt-0 text-white my-20"
     >
       <h2 className="text-3xl font-semibold mb-8 text-center">
         My <span className="text-blue-400">Skills</span>
