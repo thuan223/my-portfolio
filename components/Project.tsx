@@ -1,6 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import { Github } from "lucide-react";
 
 const projects = [
   {
@@ -35,34 +34,97 @@ const projects = [
   },
 ];
 
-
-
 export default function Projects() {
   return (
-    <section id="projects" className="my-20 pt-30 min-h-screen text-white">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="text-center mb-10"
-      >
+    <section id="projects" className="my-20 pt-0 md:pt-30 min-h-screen text-white">
+      {/* Header */}
+      <div className="text-center mb-10">
         <h2 className="text-3xl font-bold mb-2">
           Featured <span className="text-blue-400">Projects</span>
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
           Here are some of my recent projects. Each project was carefully crafted with attention to detail, performance, and user experience.
         </p>
-      </motion.div>
+      </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      {/* Mobile Scroll */}
+      <div className="md:hidden overflow-x-auto scrollbar-thin px-2">
+        <div className="flex gap-4">
+          {projects.map((p, i) => (
+            <div
+              key={i}
+              className="min-w-[250px] bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-blue-400 transition"
+            >
+              <div className="h-40 overflow-hidden">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className="object-cover w-full h-full hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-5">
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {p.tech.map((t, j) => (
+                    <span
+                      key={j}
+                      className="px-2 py-1 text-xs border border-blue-400/40 rounded-full text-blue-300"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="font-semibold text-lg">{p.title}</h3>
+                  <div className="flex space-x-2">
+                    {Array.isArray(p.github)
+                      ? p.github.map((link, idx) => (
+                          <a key={idx} href={link} target="_blank" className="hover:text-blue-400 transition">
+                            <Github size={18} />
+                          </a>
+                        ))
+                      : (
+                          <a href={p.github} target="_blank" className="hover:text-blue-400 transition">
+                            <Github size={18} />
+                          </a>
+                        )}
+                  </div>
+                </div>
+                <p className="text-gray-400 text-sm mb-4">{p.desc}</p>
+              </div>
+            </div>
+          ))}
+
+          {/* Card nút Github (như card project) */}
+          <div className="min-w-[250px] bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl flex items-center justify-center hover:border-blue-400 transition">
+            <a
+              href="https://github.com/thuan223"
+              target="_blank"
+              className="px-6 py-2 bg-blue-500 rounded-full hover:bg-blue-600 transition text-sm font-semibold text-white"
+            >
+              Check My Github →
+            </a>
+          </div>
+        </div>
+
+        <style jsx>{`
+          .scrollbar-thin::-webkit-scrollbar {
+            height: 6px;
+          }
+          .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: gray;
+            border-radius: 3px;
+          }
+        `}</style>
+      </div>
+
+      {/* Desktop Grid */}
+      <div className="hidden md:grid md:grid-cols-3 gap-8">
         {projects.map((p, i) => (
-          <motion.div
+          <div
             key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            viewport={{ once: true }}
             className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-blue-400 transition"
           >
             <div className="h-40 overflow-hidden">
@@ -83,39 +145,30 @@ export default function Projects() {
                   </span>
                 ))}
               </div>
-          <div className="flex items-center justify-between mb-1">
-        <h3 className="font-semibold text-lg">{p.title}</h3>
-       <div className="flex space-x-2">
-    {Array.isArray(p.github)
-      ? p.github.map((link, i) => (
-          <a
-            key={i}
-            href={link}
-            target="_blank"
-            className="hover:text-blue-400 transition"
-          >
-            <Github size={18} />
-          </a>
-        ))
-      : (
-          <a
-            href={p.github}
-            target="_blank"
-            className="hover:text-blue-400 transition"
-          >
-            <Github size={18} />
-          </a>
-        )}
-  </div>
-      </div>
-      <p className="text-gray-400 text-sm mb-4">{p.desc}</p>
-
+              <div className="flex items-center justify-between mb-1">
+                <h3 className="font-semibold text-lg">{p.title}</h3>
+                <div className="flex space-x-2">
+                  {Array.isArray(p.github)
+                    ? p.github.map((link, idx) => (
+                        <a key={idx} href={link} target="_blank" className="hover:text-blue-400 transition">
+                          <Github size={18} />
+                        </a>
+                      ))
+                    : (
+                        <a href={p.github} target="_blank" className="hover:text-blue-400 transition">
+                          <Github size={18} />
+                        </a>
+                      )}
+                </div>
+              </div>
+              <p className="text-gray-400 text-sm mb-4">{p.desc}</p>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
 
-      <div className="flex justify-center mt-10">
+      {/* Nút Github cho desktop */}
+      <div className="hidden md:flex justify-center mt-10">
         <a
           href="https://github.com/thuan223"
           target="_blank"

@@ -40,13 +40,10 @@ export default function Skills() {
       : skillsData.All.filter((s) => skillsData[filter].includes(s.name));
 
   return (
-    <motion.section
+    <div
       id="skills"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="min-h-screen pt-13 text-white my-20"
+
+      className="min-h-screen pt-0 md:pt-10 text-white my-20"
     >
       <h2 className="text-3xl font-semibold mb-8 text-center">
         My <span className="text-blue-400">Skills</span>
@@ -69,25 +66,55 @@ export default function Skills() {
         ))}
       </div>
 
-      {/* Skill Cards */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-  {filteredSkills.map((skill) => (
-    <div
-      key={skill.name}
-      className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl hover:border-blue-400 transition"
-    >
-      <h4 className="font-semibold mb-2">{skill.name}</h4>
-      <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
-        <div
-          className="bg-blue-500 h-2 rounded-full transition-all duration-700"
-          style={{ width: `${skill.level}%` }}
-        />
+<div className="w-full">
+
+  {/* Tablet trở lên: hiển thị dạng lưới */}
+{/* Skill Cards */}
+<div
+  className="w-full max-h-[60vh] overflow-y-auto pr-2"
+  style={{
+    scrollbarWidth: 'thin', // Firefox
+    scrollbarColor: 'gray transparent', // Firefox
+  }}
+>
+  <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+    {filteredSkills.map((skill) => (
+      <div
+        key={skill.name}
+        className="p-3 sm:p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl hover:border-blue-400 transition"
+      >
+        <h4 className="font-semibold text-xs sm:text-base mb-1 sm:mb-2 text-center">
+          {skill.name}
+        </h4>
+        <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+          <div
+            className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-700"
+            style={{ width: `${skill.level}%` }}
+          />
+        </div>
+        <p className="text-[10px] sm:text-sm text-gray-400 mt-1 text-center">{skill.level}%</p>
       </div>
-      <p className="text-sm text-gray-400 mt-1">{skill.level}%</p>
-    </div>
-  ))}
+    ))}
+  </div>
+
+  <style jsx>{`
+    /* Chrome, Edge, Safari */
+    div::-webkit-scrollbar {
+      width: 6px;
+    }
+    div::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    div::-webkit-scrollbar-thumb {
+      background-color: gray;
+      border-radius: 3px;
+    }
+  `}</style>
 </div>
 
-    </motion.section>
+
+</div>
+
+    </div>
   );
 }

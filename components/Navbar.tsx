@@ -1,7 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect, useTransition } from "react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar({
   hidden,
@@ -10,58 +12,76 @@ export default function Navbar({
   hidden: boolean;
   setHidden: (v: boolean) => void;
 }) {
-  const [activeSection, setActiveSection] = useState<string>("introduce");
-
-  useEffect(() => {
-    const sections = document.querySelectorAll("section[id]");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    sections.forEach((sec) => observer.observe(sec));
-    return () => observer.disconnect();
-  }, []);
+  const pathname = usePathname();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [currentPath, setCurrentPath] = useState(pathname);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const links = [
-    { id: "introduce", label: "Introduce" },
-    { id: "about", label: "About" },
-    { id: "skills", label: "Skills" },
-    { id: "projects", label: "Projects" },
-    { id: "contact", label: "Contact" },
+    { href: "/", label: "Introduce" },
+    { href: "/about", label: "About" },
+    { href: "/skills", label: "Skills" },
+    { href: "/projects", label: "Projects" },
+    { href: "/contact", label: "Contact" },
   ];
 
+  // Cập nhật currentPath ngay khi pathname thay đổi
+  useEffect(() => {
+    setCurrentPath(pathname);
+  }, [pathname]);
+
+  // Hàm chuyển route không delay
+  const handleNavigate = (href: string) => {
+    setMenuOpen(false);
+    if (href !== pathname) {
+      startTransition(() => {
+        router.push(href);
+      });
+    }
+  };
+
   return (
-    <motion.nav
-      initial={{ y: -30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className="flex justify-between items-center py-6 px-10 fixed top-0 left-0 w-full bg-transparent text-white z-50"
+    <nav
+      // layout
+      // animate={{ opacity: 1, y: 0 }}
+      // transition={{ duration: 0.15 }}
+      className="fixed top-0 left-0 w-full bg-black/30 backdrop-blur-md text-white z-50 flex items-center justify-between px-6 sm:px-10 py-4"
     >
-      <h1 className="font-bold text-xl">{`${hidden ? "" : "Portfolio"}`}</h1>
-      <div className="flex items-center space-x-6 text-sm">
-        {!hidden && (
-          <>
-            {links.map((link) => (
-              <Link
-                key={link.id}
-                href={`#${link.id}`}
-                className={`transition ${
-                  activeSection === link.id
-                    ? "text-purple-400 font-semibold"
-                    : "hover:text-blue-400"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </>
-        )}
+      <h1 className="font-bold text-lg sm:text-xl">{hidden ? "" : "Portfolio"}</h1>
+
+      {/* Nút toggle cho mobile */}
+      <div className="sm:hidden flex items-center gap-3">
+        <button
+          onClick={() => setHidden(!hidden)}
+          className="px-2 py-1 border border-white rounded text-sm hover:bg-white hover:text-black transition"
+        >
+          {hidden ? "Show" : "Hide"}
+        </button>
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="focus:outline-none"
+        >
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
+      {/* Menu desktop */}
+      <div className="hidden sm:flex items-center space-x-6 text-sm">
+        {!hidden &&
+          links.map((link) => (
+            <button
+              key={link.href}
+              onClick={() => handleNavigate(link.href)}
+              className={`transition ${
+                currentPath === link.href
+                  ? "text-purple-400 font-semibold"
+                  : "hover:text-blue-400"
+              }`}
+            >
+              {link.label}
+            </button>
+          ))}
         <button
           onClick={() => setHidden(!hidden)}
           className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black transition"
@@ -69,6 +89,26 @@ export default function Navbar({
           {hidden ? "Show" : "Hide"}
         </button>
       </div>
-    </motion.nav>
+
+      {/* Menu mobile overlay */}
+      {menuOpen && (
+        <div className="absolute top-full left-0 w-full bg-black/90 text-center py-4 flex flex-col space-y-4 sm:hidden">
+          {!hidden &&
+            links.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => handleNavigate(link.href)}
+                className={`transition ${
+                  currentPath === link.href
+                    ? "text-purple-400 font-semibold"
+                    : "hover:text-blue-400"
+                }`}
+              >
+                {link.label}
+              </button>
+            ))}
+        </div>
+      )}
+    </nav>
   );
 }

@@ -10,26 +10,26 @@ export default function ScrollGuide() {
   return (
     <div className="fixed bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white z-50">
       {/* Biểu tượng chuột */}
-      <motion.div
+      <div
         className="w-8 h-14 border-2 border-white rounded-full flex justify-center relative"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity }}
+        // animate={{ y: [0, 10, 0] }}
+        // transition={{ duration: 1.5, repeat: Infinity }}
       >
-        <motion.div
+        <div
           className="w-1 h-3 bg-white rounded-full absolute top-2"
-          animate={{ y: [0, 6, 0], opacity: [1, 0.5, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          // animate={{ y: [0, 6, 0], opacity: [1, 0.5, 1] }}
+          // transition={{ duration: 1.5, repeat: Infinity }}
         />
-      </motion.div>
+      </div>
 
       {/* Dòng chữ */}
-      <motion.p
+      <p
         className="mt-3 text-sm opacity-80"
-        animate={{ opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        // animate={{ opacity: [0.6, 1, 0.6] }}
+        // transition={{ duration: 2, repeat: Infinity }}
       >
         Scroll to next planet
-      </motion.p>
+      </p>
 
       {/* Nút OK */}
       <button

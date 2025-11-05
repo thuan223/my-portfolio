@@ -3,28 +3,24 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <motion.section id="introduce"   
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="min-h-screen pt-30  text-white">
-      <div className="flex-col justify-start text-left px-8">
-        <motion.h1
-          className="text-5xl md:text-7xl font-extrabold mb-6 text-white leading-tight"
-        >
-          Hello, I'm <span className="text-blue-400">Trần Nguyễn Nam Thuận</span>
-        </motion.h1>
+    <div
+      id="introduce"
+      className="min-h-screen pt-20 md:pt-30 w-full flex flex-col text-white overflow-y-auto px-6 sm:px-10 md:px-16 lg:px-24 xl:px-32 py-10"
+    >
+      <div className="flex flex-col justify-start text-left max-w-5xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
+          Hello, I'm{" "}
+          <span className="text-blue-400">Trần Nguyễn Nam Thuận</span>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-gray-200 md:text-lg  leading-relaxed"
-        >
-          I’m a Web Developer passionate about crafting meaningful digital experiences. I love transforming ideas into engaging, interactive, and visually captivating websites that leave a lasting impression while combining creativity, logic, and attention to detail in every line of code.
-        </motion.p>
+        <p className="text-sm sm:text-base md:text-lg leading-relaxed bg-gray-800/30 rounded-2xl p-4 sm:p-6 mt-4 shadow-lg backdrop-blur-sm text-gray-100 overflow-y-auto max-h-[60vh]">
+          I’m a Web Developer passionate about crafting meaningful digital
+          experiences. I love transforming ideas into engaging, interactive,
+          and visually captivating websites that leave a lasting impression
+          while combining creativity, logic, and attention to detail in every
+          line of code.
+        </p>
       </div>
-    </motion.section>
+    </div>
   );
 }
