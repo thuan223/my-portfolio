@@ -9,20 +9,20 @@ export default function Contact() {
       className="min-h-screen py-20 text-white"
     >
       {/* Header */}
-      <div className="text-center mb-12">
+      <div className="text-center  pt-0 md:pt-0  mb-5 md:mb-12 ">
         <h2 className="text-3xl font-bold">
           Get In <span className="text-blue-400">Touch</span>
         </h2>
-        <p className="text-gray-400 mt-2 text-lg">
-          Have a project in mind or want to collaborate? Feel free to reach out. I'm always open to discussing new opportunities.
-        </p>
+      <p className="text-gray-400 mt-2 text-lg hidden md:block">
+      Have a project in mind or want to collaborate? Feel free to reach out. I'm always open to discussing new opportunities.
+    </p>
       </div>
 
       {/* Mobile Scroll */}
       <div className="md:hidden overflow-x-auto scrollbar-thin px-2">
         <div className="flex gap-8">
           {/* Left - Contact Info */}
-          <div className="flex-shrink-0 w-full max-w-md bg-white/5 backdrop-blur-sm p-10 rounded-2xl border border-white/10 text-left">
+          <div className="flex-shrink-0 w-full max-w-md bg-white/5 backdrop-blur-sm p-5 rounded-2xl border border-white/10 text-left">
             <h3 className="text-2xl font-semibold mb-8">Contact Information</h3>
 
             <div className="space-y-12 text-lg text-gray-300">
